@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { ShieldCheck, FlaskConical, Droplets, Leaf, Factory, Building2, Pickaxe, Hotel, Home, Users } from 'lucide-react'
+import { ShieldCheck, FlaskConical, Droplets, Leaf, Factory, Building2, Hotel, Home, Users } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 export function SplitCards() {
@@ -111,7 +111,7 @@ export function BackedByScience() {
 export function WhoWeServe() {
   const items = [
     ['Municipal & private plants', Factory],
-    ['Industry & mines', Pickaxe],
+    ['Industry & mines', Factory],
     ['Estates & hospitality', Hotel],
     ['Farmers & agri‑business', Leaf],
     ['Borehole users', Home],

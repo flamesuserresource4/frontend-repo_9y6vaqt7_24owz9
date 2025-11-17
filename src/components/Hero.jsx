@@ -1,7 +1,18 @@
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import Spline from '@splinetool/react-spline'
 
 export default function Hero({ title, subtitle, primaryCta, secondaryCta, variant = 'home' }) {
+  const [SplineComp, setSplineComp] = useState(null)
+
+  useEffect(() => {
+    let mounted = true
+    // Lazy-load Spline only on the client and fail gracefully if it can't load
+    import('@splinetool/react-spline')
+      .then((m) => { if (mounted) setSplineComp(() => m.default) })
+      .catch(() => { if (mounted) setSplineComp(() => null) })
+    return () => { mounted = false }
+  }, [])
+
   const isWater = variant === 'water' || variant === 'home'
   const bg = isWater
     ? 'from-blue-950 via-blue-900 to-teal-700'
@@ -33,7 +44,11 @@ export default function Hero({ title, subtitle, primaryCta, secondaryCta, varian
 
           <div className="relative h-[320px] sm:h-[420px] rounded-2xl overflow-hidden ring-1 ring-white/10">
             <div className="absolute inset-0 opacity-90">
-              <Spline scene={isWater ? 'https://prod.spline.design/7y4Q0nJd8tOQ3yq9/scene.splinecode' : 'https://prod.spline.design/tY-9X-2Ttob7w0XK/scene.splinecode'} />
+              {SplineComp ? (
+                <SplineComp scene={isWater ? 'https://prod.spline.design/7y4Q0nJd8tOQ3yq9/scene.splinecode' : 'https://prod.spline.design/tY-9X-2Ttob7w0XK/scene.splinecode'} />
+              ) : (
+                <div className="h-full w-full bg-gradient-to-br from-white/10 to-white/5" />
+              )}
             </div>
             <motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{delay:0.8}} className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/10 to-transparent" />
           </div>
