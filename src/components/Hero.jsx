@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
+import SafeSpline from './SafeSpline'
 
 export default function Hero({ title, subtitle, primaryCta, secondaryCta, variant = 'home' }) {
   const [SplineComp, setSplineComp] = useState(null)
@@ -45,7 +46,9 @@ export default function Hero({ title, subtitle, primaryCta, secondaryCta, varian
           <div className="relative h-[320px] sm:h-[420px] rounded-2xl overflow-hidden ring-1 ring-white/10">
             <div className="absolute inset-0 opacity-90">
               {SplineComp ? (
-                <SplineComp scene={isWater ? 'https://prod.spline.design/7y4Q0nJd8tOQ3yq9/scene.splinecode' : 'https://prod.spline.design/tY-9X-2Ttob7w0XK/scene.splinecode'} />
+                <SafeSpline>
+                  <SplineComp scene={isWater ? 'https://prod.spline.design/7y4Q0nJd8tOQ3yq9/scene.splinecode' : 'https://prod.spline.design/tY-9X-2Ttob7w0XK/scene.splinecode'} />
+                </SafeSpline>
               ) : (
                 <div className="h-full w-full bg-gradient-to-br from-white/10 to-white/5" />
               )}
